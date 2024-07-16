@@ -7,6 +7,8 @@ export const POST = async (req: NextRequest) => {
     const body = await req.json();
     let { urlCode, checkPassword, password, date, osType, deviceType } = body;
 
+    console.log(body);
+
     date = new Date(date.split("T")[0]);
 
     const link = await prisma.link.findFirst({

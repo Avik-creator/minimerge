@@ -59,7 +59,7 @@ export const POST = async (req: NextRequest) => {
           urlCode: shortUrlCode,
           isPrivate: isProtected,
           password: isProtected ? hashedPassword : "",
-          shortUrl: `${DOMAIN}/l/${shortUrlCode}`,
+          shortUrl: `${DOMAIN}/link/${shortUrlCode}`,
 
           user: {
             connect: {

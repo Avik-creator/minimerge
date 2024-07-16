@@ -4,10 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-dropdown-menu";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { detectDeviceAndOS } from "@/lib/helpers";
 
-const GetLink = ({ params }: any) => {
+interface GetLinkProps {
+  params: {
+    urlCode: string;
+  };
+}
+
+const GetLink = ({ params }: GetLinkProps) => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(true);
   const [destinationUrl, setDestinationUrl] = useState("");
@@ -30,6 +36,7 @@ const GetLink = ({ params }: any) => {
         osType: deviceInfo[0],
         deviceType: deviceInfo[1],
       });
+
       return res.data;
     } catch (e) {
       console.log("Something went wrong.");
