@@ -3,6 +3,7 @@ import { prisma } from "@/db/db";
 import { getToken } from "next-auth/jwt";
 import { headers } from "next/headers";
 
+// TODO: CHECK If there is any erro or not.
 export const DELETE = async (req: NextRequest) => {
   try {
     const token = await getToken({ req });
