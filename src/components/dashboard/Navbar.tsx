@@ -50,7 +50,11 @@ export const Navbar = () => {
               <DropdownMenuContent>
                 <DropdownMenuLabel>
                   <div>
-                    <h1 className="font-bold">{user.username}</h1>
+                    <h1 className="font-bold">
+                      {user.username === "oauth-user"
+                        ? user.name
+                        : user.username}
+                    </h1>
                     <span className="font-light">{user.email}</span>
                   </div>
                 </DropdownMenuLabel>

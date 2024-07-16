@@ -25,7 +25,8 @@ const Settings = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    setUsername(user.username!);
+    const u = user.username === "oauth-user" ? user.name : user.username;
+    setUsername(String(u));
   }, [user]);
 
   if (status === "loading") {
@@ -155,7 +156,7 @@ const Settings = () => {
               <div className="w-[100%] flex items-center justify-between gap-2">
                 <Input
                   type="text"
-                  value={username}
+                  value={username === "oauth-user" ? "" : username}
                   placeholder={`${username}`}
                   onChange={(e) => {
                     setUsername(e.target.value);
