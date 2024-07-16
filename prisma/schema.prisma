@@ -1,0 +1,118 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  username      String    @unique @default("oauth-user")
+  email         String    @unique
+  password      String    @default("")
+  emailVerified DateTime?
+  image         String?   @default("")
+  accounts      Account[]
+  links         Link[]
+  sessions      Session[]
+}
+
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Link {
+  id        String         @id @default(cuid())
+  userId    String
+  url       String
+  shortUrl  String?
+  urlCode   String         @unique
+  clicks    Int            @default(0)
+  isPrivate Boolean        @default(false)
+  password  String?
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  lastClick DateTime?      @default(now())
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  locations LinkLocation[]
+  dates     LinkDate[]
+  os        OSType[]
+  device    DeviceType[]
+}
+
+
+model LinkLocation {
+  id      String  @id @default(cuid())
+  linkId  String
+  country String?
+  city    String?
+  clicks  Int     @default(0)
+  link    Link    @relation(fields: [linkId], references: [id], onDelete: Cascade)
+}
+
+model LinkDate {
+  id     String    @id @default(cuid())
+  date   DateTime? @db.Date
+  clicks Int
+  linkId String
+  link   Link      @relation(fields: [linkId], references: [id], onDelete: Cascade)
+}
+
+model OSType {
+  id      String    @id @default(cuid())
+  os      String
+  clicks  Int
+  linkId  String
+  link    Link      @relation(fields: [linkId], references: [id], onDelete: Cascade)
+}
+
+model DeviceType {
+  id          String    @id @default(cuid())
+  device      String
+  clicks      Int
+  linkId      String
+  link        Link      @relation(fields: [linkId], references: [id], onDelete: Cascade)
+}
