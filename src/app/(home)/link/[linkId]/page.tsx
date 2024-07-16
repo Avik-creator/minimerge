@@ -23,7 +23,7 @@ import { PieChart } from "@/components/ui/PieChart";
 import { IOType } from "child_process";
 import Loader from "@/components/ui/common/Loader";
 
-const page = ({ params }: any) => {
+const Page = ({ params }: any) => {
   const { toast } = useToast();
   const router = useRouter();
   const [linkData, setLinkData] = useState<ILink>();
@@ -170,4 +170,4 @@ const page = ({ params }: any) => {
   );
 };
 
-export default page;
+export default Page;

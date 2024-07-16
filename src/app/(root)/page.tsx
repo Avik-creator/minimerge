@@ -4,11 +4,11 @@ import React from "react";
 import { Navbar } from "@/components/navbar/navbar";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { motion } from "framer-motion";
+
 import { useRouter } from "next/navigation";
 import Features from "@/components/Features";
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
 
   return (
@@ -51,4 +51,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

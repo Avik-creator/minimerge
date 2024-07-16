@@ -120,7 +120,7 @@ const Dashboard = () => {
             {linksState.links && linksState.links.length !== 0 && (
               <div className="w-[100%]">
                 {linksState.links.map((link: ILink) => (
-                  <div className="mt-4 w-[100%]">
+                  <div className="mt-4 w-[100%]" key={String(link.id)}>
                     <LinkItem
                       key={String(link)}
                       urlCode={link.urlCode}

@@ -91,7 +91,7 @@ const Login = () => {
           </Button>
 
           <div className="flex  items-center justify-center text-md gap-2">
-            <Label>Don't have an account?</Label>
+            <Label>Don&apos;t have an account?</Label>
             <Link style={{ fontWeight: 500 }} href="/sign-up">
               Signup
             </Link>
