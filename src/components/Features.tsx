@@ -9,7 +9,7 @@ const Features = () => {
       <div className="w-[100%] flex">
         <div
           onClick={() => {
-            router.push("/features/analytics");
+            router.push("/");
           }}
           className="w-[45%] flex flex-col items-start justify-center m-3 hover:bg-slate-200 hover:rounded-[1.2rem] p-3"
         >
@@ -28,7 +28,7 @@ const Features = () => {
         </div>
         <div
           onClick={() => {
-            router.push("/features/qr-code");
+            router.push("/");
           }}
           className="w-[45%] flex flex-col items-start justify-center m-3 hover:bg-slate-200 hover:rounded-[1.2rem] p-3"
         >
@@ -49,7 +49,7 @@ const Features = () => {
       <div className="w-[100%] flex">
         <div
           onClick={() => {
-            router.push("/features/private-links");
+            router.push("/");
           }}
           className="w-[45%] flex flex-col items-start justify-center m-3 hover:bg-slate-200 hover:rounded-[1.2rem] p-3"
         >
@@ -69,7 +69,7 @@ const Features = () => {
 
         <div
           onClick={() => {
-            router.push("/features/timed-links");
+            router.push("/");
           }}
           className="w-[45%] flex flex-col items-start justify-center m-3 hover:bg-slate-200 hover:rounded-[1.2rem] p-3"
         >
