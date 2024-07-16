@@ -39,7 +39,7 @@ export const Navbar = () => {
                     <div className="w-[30rem] flex items-center justify-between flex-wrap">
                       <div
                         onClick={() => {
-                          router.push("/features/analytics");
+                          router.push("/");
                         }}
                         className="w-[45%] flex flex-col items-start justify-center m-3 hover:bg-slate-200 hover:rounded-[1.2rem] p-3"
                       >
@@ -62,7 +62,7 @@ export const Navbar = () => {
                       </div>
                       <div
                         onClick={() => {
-                          router.push("/features/qr-code");
+                          router.push("/");
                         }}
                         className="w-[45%] flex flex-col items-start justify-center m-3 hover:bg-slate-200 hover:rounded-[1.2rem] p-3"
                       >
@@ -85,7 +85,7 @@ export const Navbar = () => {
                       </div>
                       <div
                         onClick={() => {
-                          router.push("/features/private-links");
+                          router.push("/");
                         }}
                         className="w-[45%] flex flex-col items-start justify-center m-3 hover:bg-slate-200 hover:rounded-[1.2rem] p-3"
                       >
@@ -106,27 +106,7 @@ export const Navbar = () => {
                           </span>
                         </div>
                       </div>
-                      <div
-                        onClick={() => {
-                          router.push("/features/timed-links");
-                        }}
-                        className="w-[45%] flex flex-col items-start justify-center m-3 hover:bg-slate-200 hover:rounded-[1.2rem] p-3"
-                      >
-                        <div className="flex items-center gap-1">
-                          <img
-                            width="20"
-                            height="20"
-                            src="https://img.icons8.com/ios-filled/50/time.png"
-                            alt="time"
-                          />
-                          <span className="font-bold text-[.8rem]">
-                            Timed Links
-                          </span>
-                        </div>
-                        <div>
-                          <span className="text-[.8rem]">Timed Links</span>
-                        </div>
-                      </div>
+                     
                     </div>
                   </NavigationMenuLink>
                 </NavigationMenuContent>
