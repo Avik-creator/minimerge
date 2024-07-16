@@ -7,6 +7,7 @@ import { BCRYPT_SALT_ROUNDS } from "@/lib/constants";
 export const POST = async (req: NextRequest) => {
   try {
     const body = await req.json();
+
     const { username, email, password } = body;
 
     const validateData = SignupFormSchema.safeParse({
@@ -19,13 +20,13 @@ export const POST = async (req: NextRequest) => {
       throw new Error("Validation failed");
     }
 
-    const checkUserWithUsername = await prisma.user.findMany({
-      where: { username },
-    });
+    // const checkUserWithUsername = await prisma.user.({
+    //   where: { username },
+    // });
 
-    if (checkUserWithUsername.length != 0) {
-      throw new Error("Username already exists");
-    }
+    // if (checkUserWithUsername) {
+    //   throw new Error("Username already exists");
+    // }
 
     const checkUserWithEmail = await prisma.user.findUnique({
       where: { email },
