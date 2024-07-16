@@ -25,8 +25,15 @@ export const POST = async (req: NextRequest) => {
       },
     });
 
+    if (!link) {
+      return NextResponse.json(
+        { data: null, error: true, msg: "Link not found!" },
+        { status: 404 }
+      );
+    }
+
     if (checkPassword) {
-      const matchPassword = bcrypt.compareSync(password, link?.password!);
+      const matchPassword = bcrypt.compareSync(password, link.password || "");
 
       if (!matchPassword) {
         return NextResponse.json(
@@ -37,7 +44,7 @@ export const POST = async (req: NextRequest) => {
     }
 
     const res = await prisma.link.update({
-      where: { id: link?.id },
+      where: { id: link.id },
       data: {
         clicks: { increment: 1 },
         lastClick: new Date(),
@@ -51,17 +58,17 @@ export const POST = async (req: NextRequest) => {
 
     const checkDate = res.dates.findIndex(
       (e) =>
-        e.date?.toISOString().split("T")[0] == date.toISOString().split("T")[0]
+        e.date?.toISOString().split("T")[0] === date.toISOString().split("T")[0]
     );
 
-    if (checkDate == -1) {
+    if (checkDate === -1) {
       await prisma.linkDate.create({
         data: {
           date: date,
           clicks: 1,
           link: {
             connect: {
-              id: link?.id,
+              id: link.id,
             },
           },
         },
@@ -73,17 +80,17 @@ export const POST = async (req: NextRequest) => {
       });
     }
 
-    const osCheck = res.os.findIndex((e) => e.os == osType);
-    const deviceCheck = res.device.findIndex((e) => e.device == deviceType);
+    const osCheck = res.os.findIndex((e) => e.os === osType);
+    const deviceCheck = res.device.findIndex((e) => e.device === deviceType);
 
-    if (osCheck == -1) {
+    if (osCheck === -1) {
       await prisma.oSType.create({
         data: {
           os: osType,
           clicks: 1,
           link: {
             connect: {
-              id: link?.id,
+              id: link.id,
             },
           },
         },
@@ -95,20 +102,20 @@ export const POST = async (req: NextRequest) => {
       });
     }
 
-    if (deviceCheck == -1) {
+    if (deviceCheck === -1) {
       await prisma.deviceType.create({
         data: {
           device: deviceType,
           clicks: 1,
           link: {
             connect: {
-              id: link?.id,
+              id: link.id,
             },
           },
         },
       });
     } else {
-      await prisma.oSType.update({
+      await prisma.deviceType.update({
         where: { id: res.device[deviceCheck].id },
         data: { clicks: { increment: 1 } },
       });
@@ -116,6 +123,9 @@ export const POST = async (req: NextRequest) => {
 
     return NextResponse.json({ data: link, error: false }, { status: 200 });
   } catch (e) {
-    throw new Error((e as Error).message);
+    return NextResponse.json(
+      { data: null, error: true, msg: (e as Error).message },
+      { status: 500 }
+    );
   }
 };

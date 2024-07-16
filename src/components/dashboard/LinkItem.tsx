@@ -108,7 +108,7 @@ const LinkItem: React.FC<LinkItemType> = ({
   const updateLink = async (e: any) => {
     e.preventDefault();
 
-    if (isPrivate && password == "") {
+    if (isPrivate && pswd == "") {
       toast({
         description: "Password Cannot be empty",
         variant: "destructive",
@@ -306,7 +306,7 @@ const LinkItem: React.FC<LinkItemType> = ({
                   type="text"
                   id="destUrl"
                   placeholder="Minimerge.me"
-                  required
+                  required={isPrivate}
                   value={destinationUrl}
                   onChange={(e) => setDestinationUrl(e.target.value)}
                 />

@@ -19,6 +19,7 @@ const GetLink = ({ params }: GetLinkProps) => {
   const [destinationUrl, setDestinationUrl] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
   const [error, setError] = useState({ error: false, msg: "" });
+  const [deviceInfo, setDeviceInfo] = useState<string[]>([]);
 
   const redirectURL = (url: string) => {
     if (typeof window !== "undefined") {
@@ -49,6 +50,9 @@ const GetLink = ({ params }: GetLinkProps) => {
       const res = await axios.post("/api/link/get-link/", {
         urlCode: params.urlCode,
         checkPassword: true,
+        date: new Date().toISOString(),
+        osType: deviceInfo[0],
+        deviceType: deviceInfo[1],
         password,
       });
       setError({ ...error, error: false });
@@ -64,10 +68,11 @@ const GetLink = ({ params }: GetLinkProps) => {
 
     if (typeof window !== "undefined") {
       deviceInfo = detectDeviceAndOS();
+      setDeviceInfo(deviceInfo);
     }
 
     getLink(deviceInfo).then((d) => {
-      if (!d?.data?.isPrivate) {
+      if (!d?.data?.isPrivate && d?.data?.url) {
         redirectURL(d.data.url);
       } else {
         setIsPrivate(true);
