@@ -61,6 +61,8 @@ const CreateLinkModal = ({ getLinks }: CreateModalPropsType) => {
           });
         });
         modalTriggerRef.current?.click();
+        setIsProtected(false);
+
         copyText(res.data.data.shortUrl);
         toast({ description: "Copied link to clipboard", variant: "default" });
         setPassword("");
@@ -105,7 +107,10 @@ const CreateLinkModal = ({ getLinks }: CreateModalPropsType) => {
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <div className="flex justify-between items-center">
                 <Label htmlFor="destUrl">Add Password</Label>
-                <Switch onCheckedChange={(e) => setIsProtected(e)} />
+                <Switch
+                  checked={isProtected}
+                  onCheckedChange={(e) => setIsProtected(e)}
+                />
               </div>
               {isProtected && (
                 <Input

@@ -50,7 +50,7 @@ export const authOptions: NextAuthOptions = {
 
         return {
           id: user.id,
-          username: user.username || "oauth-user",
+          username: String(user.name),
           name: user.name,
           email: user.email,
           image: user.image,
